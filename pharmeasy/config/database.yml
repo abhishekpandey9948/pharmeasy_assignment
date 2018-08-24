@@ -1,0 +1,17 @@
+default: &default
+  adapter: postgresql
+  database: pharmeasy
+  host: 127.0.0.1
+  username: abhishek
+  password: abhishek
+  multidb:
+   fallback: true
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
