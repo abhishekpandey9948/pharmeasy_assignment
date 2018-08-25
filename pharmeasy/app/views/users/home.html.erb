@@ -7,3 +7,5 @@
       <%= link_to('Login', new_user_session_path)  %>
     </li>
 <% end %>
+
+<%= render "#{@current_user.users_role.name.to_s.downcase}_home"%>

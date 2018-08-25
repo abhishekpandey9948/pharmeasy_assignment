@@ -1,0 +1,29 @@
+<%= form_for(@prescription) do |f| %>
+    <% if @prescription.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@prescription.errors.count, "error") %> prohibited this prescription from being saved:</h2>
+
+          <ul>
+            <% @prescription.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :prescription_name %><br>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :documents %><br>
+      <%= f.simple_fields_for :documents do |document| %>
+          <%= render "document_fields", :f => document %>
+      <%end%>
+      <%= link_to_add_association 'Add Image', f, :documents, partial: 'document_fields' %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

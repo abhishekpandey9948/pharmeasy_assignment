@@ -3,7 +3,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
   belongs_to :users_role, class_name: "Users::Role"
+  has_many :prescriptions
 
   before_save :generate_uuid, uniqueness: true
 

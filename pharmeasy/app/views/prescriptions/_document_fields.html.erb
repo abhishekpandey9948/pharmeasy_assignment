@@ -1,0 +1,9 @@
+<div class="col-sm-9 nested-fields">
+  <div class="form-group row">
+    <div class="control-label col-sm-3"><b>Image</b></div>
+    <div class="col-sm-9">
+      <%= f.file_field :file_name %>
+    </div>
+  </div>
+  <strong><%= link_to_remove_association 'Remove Image', f , class:'btn btn-danger'%></strong>
+</div>

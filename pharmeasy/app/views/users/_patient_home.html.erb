@@ -1,0 +1,35 @@
+<h3>Your UUID<small>(Please share this id with your doctor)</small>: <%=@current_user.uuid%></h3>
+
+<h5>Past Prescriptions</h5>
+<%= link_to('Add Prescription', new_prescription_path) %>
+<table class="table table-bordered table-stripped" style="width: 300px">
+  <thead>
+  <th>Prescriptions</th>
+  <th>Images</th>
+  </thead>
+  <tbody>
+  <%@current_user.prescriptions.each do |p|%>
+      <tr>
+        <td><%=p.name%></td>
+        <td><%p.documents.each do |file|%>
+              <img src="<%=file.file_name%>" style="height: 50px; float: left; margin-right: 5px"/>
+          <%end%>
+        </td>
+      </tr>
+  <%end%>
+  </tbody>
+</table>
+
+<h5>Access Request</h5>
+<table class="table table-bordered table-stripped" style="width: 600px">
+  <thead>
+  <th>Requester Id</th>
+  <th>Requester Email</th>
+  <th>Request Type</th>
+  <th>Action</th>
+  </thead>
+  <tbody>
+
+  </tbody>
+</table>
+
