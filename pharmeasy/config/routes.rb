@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get :search
     post :request_access
     post :approve_access
+    get  :access_response
   end
 
 end

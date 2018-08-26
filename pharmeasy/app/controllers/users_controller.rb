@@ -21,10 +21,11 @@ class UsersController < ApplicationController
     if params[:user_uuid].present?
       requestee_id = ::User.find_by_uuid(params[:user_uuid]).id
       req = AccessRequest.find_or_create_by(:requestee_id=>requestee_id, :requester_id=>@current_user.id)
-      render :json => {:message => "Succesfuly submitted access request"}, status: 200
+      flash[:notice] = 'Succesfuly submitted access request'
     else
-      render :json => {:message => "invalid user uuid"}, status: 400
+      @message = "invalid user unique identity"
     end
+    redirect_to '/users/access_response'
   end
 
   def approve_access
@@ -32,9 +33,10 @@ class UsersController < ApplicationController
       requester_id = ::User.find_by_uuid(params[:user_uuid]).id
       req = AccessRequest.where(:requestee_id=>@current_user.id, :requester_id=>requester_id).last
       req.update_columns(status: AccessRequest::statuses[:active])
-      render :json => {:message => "Succesfuly approved access request"}, status: 200
+      flash[:notice] = "Succesfuly approved access request"
     else
-      render :json => {:message => "invalid user uuid"}, status: 400
+      flash[:notice] = "invalid user unique identity"
     end
+    redirect_to '/users/access_response'
   end
 end

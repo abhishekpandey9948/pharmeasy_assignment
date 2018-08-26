@@ -1,0 +1,11 @@
+<h2 style="color: blueviolet">Welcome to Pharmeasy</h2>
+
+<% if user_signed_in? %>
+    (<%= link_to('Logout', destroy_user_session_path, :method => :delete) %>)
+<% else %>
+    <%= link_to('Login', new_user_session_path)  %>
+<% end %>
+
+<p id="notice"><%= notice %></p>
+
+<a href = "/"> back to home </a>

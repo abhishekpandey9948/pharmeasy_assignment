@@ -1,19 +1,22 @@
 <h3><u>Patient Panel</u></h3>
-<h3>UUID <small>(Please share this id with your doctor)</small>: <%=@current_user.uuid%></h3>
+<h3>Your unique identity id : <b><%=@current_user.uuid%></b></h3>
+<b>Note :</b> <small>(Please share this id with your doctor or pharmacist so that they can review your prescription)</small>
 
 <%if @current_user.prescriptions and @current_user.prescriptions.size >0 %>
   <h5>Previous Prescriptions</h5>
-  <table class="table table-bordered table-stripped" style="width: 300px">
+  <table class="table" style="width: 700px;border:1px;border-color: black; border-style: solid;">
     <thead>
+    <th>Sno.</th>
     <th>Prescriptions</th>
     <th>Images</th>
     </thead>
     <tbody>
-    <%@current_user.prescriptions.each do |prescription|%>
+    <%@current_user.prescriptions.each_with_index do |prescription, index|%>
         <tr>
-          <td><%=prescription.name%></td>
+          <td><center><%=index+1%></center></td>
+          <td><center><%=prescription.name%></center></td>
           <td><%prescription.documents.each do |document|%>
-                <img src="<%=document.file_name%>" style="height: 50px; float: left; margin-right: 5px"/>
+                <img src="<%=document.file_name%>" style="height: 80px;"/>
             <%end%>
           </td>
         </tr>
@@ -21,6 +24,7 @@
     </tbody>
   </table>
 <%end%>
+<br/><br/>
 <%= link_to('Add Prescription', new_prescription_path) %>
 
 <%if @subscription_request and @subscription_request.size >0 %>

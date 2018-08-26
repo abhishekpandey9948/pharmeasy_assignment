@@ -1,0 +1,21 @@
+
+prerequisite
+ruby version >= 2.2.3 required
+postgres db
+
+1. checkout github project pharmeasy
+git clone https://github.com/abhishekpandey9948/pharmeasy_assignment.git
+
+2. build rails project
+bundle install
+
+3. set up database settings in database.yml
+
+4. run database migartions
+bin/rake db:migrate RAILS_ENV=development
+
+5. run seed command (for copy master data)
+rails db:seed
+
+6. run project
+rails s (by default listening on 3000 port)

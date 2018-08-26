@@ -1,10 +1,10 @@
 <h3><u>Pharmacist Panel</u></h3>
-<h3>UUID<small>(Please share this id with your patient)</small>: <%=@current_user.uuid%></h3>
+<h3>Your unique identity id : <b><%=@current_user.uuid%></b></h3>
 
 <%=render 'search_form'%>
 <%if @active_subscription and @active_subscription.size>0%>
     <h5>Patients</h5>
-    <table class="table table-bordered table-stripped" style="width: 700px">
+    <table class="table" style="width: 700px;border:1px;border-color: black; border-style: solid;">
       <thead>
       <th>Patient Id</th>
       <th>Patient Name</th>
