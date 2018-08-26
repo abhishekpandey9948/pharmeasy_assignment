@@ -1,0 +1,22 @@
+<table class="table table-bordered table-stripped" style="width: 600px">
+  <thead>
+  <th>Patient Id</th>
+  <th>Patient Name</th>
+  <th>Action</th>
+  </thead>
+  <tbody>
+  <%@search_results.each do |patient|%>
+      <tr>
+        <td><%=patient.uuid%></td>
+        <td><%=patient.email%></td>
+        <td>
+          <%= form_tag users_request_access_path do %>
+              <p>
+                <%= hidden_field_tag :user_uuid, patient.uuid %>
+                <%= submit_tag "Request Access", :name => nil %>
+              </p>
+          <% end %>
+          </tr>
+  <%end%>
+  </tbody>
+</table>

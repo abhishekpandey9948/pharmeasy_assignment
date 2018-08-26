@@ -1,1 +1,38 @@
-<h3>Your UUID<small>(Please share this id with your doctor)</small>: <%=@current_user.uuid%></h3>
+<h3><u>Pharmacist Panel</u></h3>
+<h3>UUID<small>(Please share this id with your patient)</small>: <%=@current_user.uuid%></h3>
+
+<%=render 'search_form'%>
+<%if @active_subscription and @active_subscription.size>0%>
+    <h5>Patients</h5>
+    <table class="table table-bordered table-stripped" style="width: 700px">
+      <thead>
+      <th>Patient Id</th>
+      <th>Patient Name</th>
+      <th>Prescription (name, doc)</th>
+      </thead>
+      <tbody>
+      <%@active_subscription.each do |req|%>
+          <%patient = User.where(id: req.requestee_id).last %>
+          <tr>
+            <td><%=patient.uuid%></td>
+            <td><%=patient.email%></td>
+            <td>
+              <table class="table table-bordered table-stripped">
+                <%patient.prescriptions.each do |prescription|%>
+                    <tr>
+                      <td><%=prescription.name%></td>
+                      <td>
+                        <%prescription.documents.each do |document|%>
+                          <img src="<%=document.file_name%>" style="height: 50px; float: left; margin-right: 5px"/>
+                        <%end%>
+                      </td>
+                    </tr>
+                <%end%>
+              </table>
+            </td>
+          </tr>
+      <%end%>
+      </tbody>
+    </table>
+<%end%>
+

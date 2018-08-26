@@ -1,0 +1,6 @@
+<%= form_tag users_search_path, :method => 'get' do %>
+    <p>
+      <%= text_field_tag :q, params[:q], placeholder: "Search Patients" %>
+      <%= submit_tag "Search", :name => nil %>
+    </p>
+<% end %>

@@ -1,35 +1,54 @@
-<h3>Your UUID<small>(Please share this id with your doctor)</small>: <%=@current_user.uuid%></h3>
+<h3><u>Patient Panel</u></h3>
+<h3>UUID <small>(Please share this id with your doctor)</small>: <%=@current_user.uuid%></h3>
 
-<h5>Past Prescriptions</h5>
+<%if @current_user.prescriptions and @current_user.prescriptions.size >0 %>
+  <h5>Previous Prescriptions</h5>
+  <table class="table table-bordered table-stripped" style="width: 300px">
+    <thead>
+    <th>Prescriptions</th>
+    <th>Images</th>
+    </thead>
+    <tbody>
+    <%@current_user.prescriptions.each do |prescription|%>
+        <tr>
+          <td><%=prescription.name%></td>
+          <td><%prescription.documents.each do |document|%>
+                <img src="<%=document.file_name%>" style="height: 50px; float: left; margin-right: 5px"/>
+            <%end%>
+          </td>
+        </tr>
+    <%end%>
+    </tbody>
+  </table>
+<%end%>
 <%= link_to('Add Prescription', new_prescription_path) %>
-<table class="table table-bordered table-stripped" style="width: 300px">
-  <thead>
-  <th>Prescriptions</th>
-  <th>Images</th>
-  </thead>
-  <tbody>
-  <%@current_user.prescriptions.each do |p|%>
-      <tr>
-        <td><%=p.name%></td>
-        <td><%p.documents.each do |file|%>
-              <img src="<%=file.file_name%>" style="height: 50px; float: left; margin-right: 5px"/>
-          <%end%>
-        </td>
-      </tr>
-  <%end%>
-  </tbody>
-</table>
 
-<h5>Access Request</h5>
-<table class="table table-bordered table-stripped" style="width: 600px">
-  <thead>
-  <th>Requester Id</th>
-  <th>Requester Email</th>
-  <th>Request Type</th>
-  <th>Action</th>
-  </thead>
-  <tbody>
-
-  </tbody>
-</table>
-
+<%if @subscription_request and @subscription_request.size >0 %>
+  <h4>Users Request</h4>
+  <table class="table table-bordered table-stripped" style="width: 600px">
+    <thead>
+    <th>User UUID</th>
+    <th>Email</th>
+    <th>Request Type</th>
+    <th>Action</th>
+    </thead>
+    <tbody>
+      <%@subscription_request.each do |req|%>
+          <%user = User.where(id: req.requester_id).last %>
+          <tr>
+            <td><%=user.uuid%></td>
+            <td><%=user.email%></td>
+            <td><%=user.users_role.name%></td>
+            <td>
+              <%= form_tag users_approve_access_path do %>
+                  <p>
+                    <%= hidden_field_tag :user_uuid, user.uuid %>
+                    <%= submit_tag "Approve Access", :name => nil %>
+                  </p>
+              <% end %>
+            </td>
+          </tr>
+      <%end%>
+    </tbody>
+  </table>
+<%end%>

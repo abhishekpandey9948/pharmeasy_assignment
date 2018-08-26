@@ -7,7 +7,13 @@ class User < ApplicationRecord
   belongs_to :users_role, class_name: "Users::Role"
   has_many :prescriptions
 
-  before_save :generate_uuid, uniqueness: true
+  has_many :subscription_request, -> { where status: 0 }, foreign_key: :requestee_id, class_name: "AccessRequest"
+
+  has_many :active_subscription, -> { where status: 1 }, foreign_key: :requester_id, class_name: "AccessRequest"
+
+  before_create :generate_uuid, uniqueness: true
+
+  USER_ROLE_ID_SEARCH_MAP = {1 => [2,3], 2 => [1], 3 => [1]}
 
   def generate_uuid
     uuid = "#{(0...8).map { rand(9) }.join}"
