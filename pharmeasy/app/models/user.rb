@@ -16,9 +16,10 @@ class User < ApplicationRecord
   USER_ROLE_ID_SEARCH_MAP = {1 => [2,3], 2 => [1], 3 => [1]}
 
   def generate_uuid
-    uuid = "#{(0...8).map { rand(9) }.join}"
+    #uses the logic: game where you need to guess 8 nos.
+    uuid = "#{8.times.map { rand(9) }.join}"
     while ::User.find_by(uuid: uuid).present? do
-      uuid = "#{(0...8).map { rand(9) }.join}"
+      uuid = "#{8.times.map { rand(9) }.join}"
     end
     self.uuid = uuid
   end

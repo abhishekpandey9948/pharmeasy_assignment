@@ -3,6 +3,9 @@ class AccessRequest < ApplicationRecord
   belongs_to :requester, foreign_key: "requester_id", class_name: "User"
   belongs_to :requestee, foreign_key: "requestee_id", class_name: "User"
 
+  validates :requester, presence: true
+  validates :requestee, presence: true
+
   enum status: [:inactive, :active]
   scope :active, -> { where(status: AccessRequest::statuses[:active]) }
   scope :inactive, -> { where(status: AccessRequest::statuses[:inactive]) }
