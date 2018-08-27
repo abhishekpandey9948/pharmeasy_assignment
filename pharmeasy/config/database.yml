@@ -14,4 +14,10 @@ test:
   <<: *default
 
 production:
-  <<: *default
+  adapter: postgresql
+    database: d9os0crtnqre9d
+    host: ec2-54-243-216-33.compute-1.amazonaws.com
+    username: nnxykynsogimwf
+    password: 3452344d9545524398512c9708851278bdfbac6461f2e6f34e640dfead87c2c7
+    multidb:
+     fallback: true
